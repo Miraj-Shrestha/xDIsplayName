@@ -7,31 +7,41 @@ export default function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (firstName && lastName) {
-      setFullName(firstName + " " + lastName);
+
+    const trimmedFirst = firstName.trim();
+    const trimmedLast = lastName.trim();
+
+    if (trimmedFirst && trimmedLast) {
+      setFullName(`${trimmedFirst} ${trimmedLast}`);
+    } else {
+      setFullName(""); // don’t show full name if incomplete
     }
   }
 
   return (
     <div>
       <h1>Full Name Display</h1>
+
       <form onSubmit={handleSubmit}>
         <input
+          type="text"
           placeholder="First Name"
+          aria-label="First Name"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          required
         />
         <br />
         <input
+          type="text"
           placeholder="Last Name"
+          aria-label="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          required
         />
         <br />
         <button type="submit">Submit</button>
       </form>
+
       {fullName && <h2>Full Name: {fullName}</h2>}
     </div>
   );
